@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(90deg, #1e5799 0%, #2c8c99 50%, #3ab795 100%);
+            color: white;
+            padding: 30px 0 120px;
+            position: relative;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 30px rgba(30, 87, 153, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo i {
+            font-size: 2.8rem;
+            color: #a8e6cf;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-container svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+
+        .wave-container .shape-fill {
+            fill: #f5f7fa;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: -70px 0 60px;
+            padding: 40px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(58, 183, 149, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, #1e5799, #3ab795);
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 30px;
+        }
+
+        .hero-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #1a5276;
+        }
+
+        .highlight {
+            color: #3ab795;
+            font-weight: 800;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #5d6d7e;
+            line-height: 1.6;
+        }
+
+        .hero-icon {
+            font-size: 8rem;
+            color: #1e5799;
+            opacity: 0.8;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Rules Section */
+        .rules-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h3 {
+            font-size: 2rem;
+            color: #1a5276;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .section-title h3 i {
+            color: #3ab795;
+        }
+
+        .title-line {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(to right, #1e5799, #3ab795);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .rule-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            box-shadow: 0 8px 20px rgba(30, 87, 153, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #3ab795;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(58, 183, 149, 0.2);
+        }
+
+        .rule-number {
+            background: linear-gradient(135deg, #1e5799, #3ab795);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rule-content h4 {
+            font-size: 1.3rem;
+            color: #1a5276;
+            margin-bottom: 10px;
+        }
+
+        .rule-content p {
+            color: #5d6d7e;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin-bottom: 60px;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #1e5799 0%, #2c8c99 100%);
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 35px rgba(30, 87, 153, 0.3);
+        }
+
+        .cta-box i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #a8e6cf;
+        }
+
+        .cta-box h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .register-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(to right, #3ab795, #2ecc71);
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.4);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.6);
+            background: linear-gradient(to right, #2ecc71, #3ab795);
+        }
+
+        .note {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+        }
+
+        .note i {
+            font-size: 1.2rem;
+            color: #a8e6cf;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: 30px 30px 0 0;
+            padding: 40px 0 20px;
+            box-shadow: 0 -10px 30px rgba(30, 87, 153, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 0 30px;
+        }
+
+        .footer-section {
+            text-align: center;
+        }
+
+        .footer-section h4 {
+            color: #1a5276;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section h4 i {
+            color: #3ab795;
+        }
+
+        .footer-section p {
+            color: #5d6d7e;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #5d6d7e;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .hero-text h2 {
+                font-size: 2.3rem;
+            }
+            
+            .hero-icon {
+                font-size: 6rem;
+            }
+            
+            .rules-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-text h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-box {
+                padding: 30px 20px;
+            }
+            
+            .cta-box h3 {
+                font-size: 1.8rem;
+            }
+            
+            .register-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .rules-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 0 100px;
+            }
+            
+            .logo {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .hero-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h3 {
+                font-size: 1.6rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-users-cog"></i>
+                <h1>Sistem Admin</h1>
+            </div>
+            <div class="wave-container">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+                    <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+                    <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-text">
+                    <h2><span class="highlight">SIAP MENJADI</span> ADMIN?</h2>
+                    <p>Bergabunglah dengan tim admin kami dan berkontribusi untuk komunitas yang lebih baik!</p>
+                </div>
+                <div class="hero-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+            </section>
+
+            <!-- Rules Section -->
+            <section class="rules-section">
+                <div class="section-title">
+                    <h3><i class="fas fa-clipboard-list"></i> PERATURAN MENJADI ADMIN</h3>
+                    <div class="title-line"></div>
+                </div>
+                
+                <div class="rules-container">
+                    <div class="rule-card">
+                        <div class="rule-number">1</div>
+                        <div class="rule-content">
+                            <h4>Ikuti Arahan Owner</h4>
+                            <p>Patuhi dan jalankan instruksi dari owner dengan baik dan tepat waktu</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <div class="rule-number">2</div>
+                        <div class="rule-content">
+                            <h4>Bijak dalam Moderasi</h4>
+                            <p>Jangan ban atau timeout member tanpa alasan yang jelas dan dapat dipertanggungjawabkan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <div class="rule-number">3</div>
+                        <div class="rule-content">
+                            <h4>Jaga Sikap</h4>
+                            <p>Selalu bersikap profesional, ramah, dan menghormati semua anggota komunitas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <div class="rule-number">4</div>
+                        <div class="rule-content">
+                            <h4>Bersikap Netral</h4>
+                            <p>Bersikap adil dan tidak memihak dalam menyelesaikan masalah atau konflik</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <div class="rule-number">5</div>
+                        <div class="rule-content">
+                            <h4>Aktif dan Bertanggung Jawab</h4>
+                            <p>Lakukan tugas dengan aktif dan penuh tanggung jawab sesuai jadwal yang ditentukan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <div class="rule-number">6</div>
+                        <div class="rule-content">
+                            <h4>Jaga Kerahasiaan</h4>
+                            <p>Tidak membagikan informasi internal atau rahasia komunitas kepada pihak luar</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Button -->
+            <section class="cta-section">
+                <div class="cta-box">
+                    <i class="fas fa-hand-point-right"></i>
+                    <h3>Syarat dan Ketentuan telah dipahami?</h3>
+                    <p>Klik tombol di bawah untuk mengisi formulir pendaftaran</p>
+                    
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdBiIcNBltOTxJL98FpYs-uWkZBbO6hFkuslslK8Tg_sMfatQ/viewform?usp=header" 
+                       target="_blank" 
+                       class="register-btn">
+                        <i class="fas fa-pen-alt"></i> DAFTAR SEKARANG
+                    </a>
+                    
+                    <div class="note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Formulir akan dibuka di halaman baru (Google Forms)</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-question-circle"></i> Pertanyaan?</h4>
+                    <p>Hubungi admin utama melalui DM atau email</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-clock"></i> Proses Seleksi</h4>
+                    <p>Hasil seleksi akan diumumkan maksimal 7 hari setelah pendaftaran ditutup</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-shield-alt"></i> Keamanan Data</h4>
+                    <p>Data pribadi Anda akan dijaga kerahasiaannya</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Sistem Pendaftaran Admin</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animasi untuk rule cards
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Apply animations to rule cards
+            document.querySelectorAll('.rule-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // Button hover effect enhancement
+            const registerBtn = document.querySelector('.register-btn');
+            if (registerBtn) {
+                registerBtn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.05)';
+                });
+                
+                registerBtn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+                
+                // Add ripple effect to register button
+                registerBtn.addEventListener('click', function(e) {
+                    // Create ripple element
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.5);
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        transform: scale(0);
+                        animation: ripple 0.6s ease-out;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    // Remove ripple after animation
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            }
+
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
